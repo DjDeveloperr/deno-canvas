@@ -6,7 +6,7 @@ Canvas API for Deno, ported from [canvaskit-wasm (Skia)](https://github.com/goog
 Import from https://deno.land/x/canvas@v1.0.0/mod.ts or just import from raw GitHub URL, https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/mod.ts.
 
 ## Usage
-mod.ts provides a default export exposing the complete CanvasKit API, and other exports from the file are types and util functions.
+`mod.ts` provides a default export exposing the complete CanvasKit API, and other exports from the file are types and util functions.
 
 ```ts
 import Canvas, { CanvasRenderingContext2D, dataURLtoFile } from 'https://deno.land/x/canvas@v1.0.0/mod.ts'
@@ -28,5 +28,11 @@ for await (const request of server) {
 }
 ```
 
+And for using images, always use `loadImage` method exported from `mod.ts`!
+```ts
+const image = await loadImage(myURL);
+ctx.drawImage(image, x, y);
+```
+
 And run with `deno run --allow-red --allow-read filename.ts`!
-Or you can directly run from URL, `https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/examples/square.ts`
+Or you can directly run from URL, https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/examples/square.ts

@@ -8,11 +8,6 @@ const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 ctx.fillStyle = 'red';
 ctx.fillRect(10, 10, 200 - 20, 200 - 20);
 
-let aimg = Canvas.MakeAnimatedImageFromEncoded(dataURLtoFile(await fetchAuto("https://cdn.discordapp.com/emojis/587737413330272291.gif?v=1")))
-aimg;
-let anim = Canvas.MakeAnimation("");
-anim;
-
 const img = await loadImage("https://cdn.discordapp.com/emojis/587737413330272291.gif?v=1");
 ctx.drawImage(img, 100 - img.width() / 2, 100 - img.height() / 2);
 

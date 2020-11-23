@@ -291,7 +291,11 @@ export const CanvasKitInit = (function () {
                       } throw "createImageData expects 1 or 2 arguments, got " + arguments.length;
                     }; this.createLinearGradient = function (k, n, x, B) { if (g(arguments)) { var G = new l(k, n, x, B); this.vg.push(G); return G } }; this.createPattern = function (k, n) { k = new P(k, n); this.vg.push(k); return k }; this.createRadialGradient = function (k, n, x, B, G, H) { if (g(arguments)) { var O = new V(k, n, x, B, G, H); this.vg.push(O); return O } }; this.yh = function () { var k = this.Pg(); this.Dg ? k.setFilterQuality(this.hg) : k.setFilterQuality(a.FilterQuality.None); return k };
                 this.drawImage = function (k) {
-                  var n = this.yh(); if (3 === arguments.length || 5 === arguments.length) var x = a.XYWHRect(arguments[1], arguments[2], arguments[3] || k.width(), arguments[4] || k.height()), B = a.XYWHRect(0, 0, k.width(), k.height()); else if (9 === arguments.length) x = a.XYWHRect(arguments[5], arguments[6], arguments[7], arguments[8]), B = a.XYWHRect(arguments[1], arguments[2], arguments[3], arguments[4]); else throw "invalid number of args for drawImage, need 3, 5, or 9; got " + arguments.length; this.Ff.drawImageRect(k, B, x, n,
+                  var n = this.yh(); 
+                  if (3 === arguments.length || 5 === arguments.length) var x = a.XYWHRect(arguments[1], arguments[2], arguments[3] || k.width(), arguments[4] || k.height()), B = a.XYWHRect(0, 0, k.width(), k.height()); 
+                  else if (9 === arguments.length) x = a.XYWHRect(arguments[5], arguments[6], arguments[7], arguments[8]), B = a.XYWHRect(arguments[1], arguments[2], arguments[3], arguments[4]); 
+                  else throw "invalid number of args for drawImage, need 3, 5, or 9; got " + arguments.length; 
+                  this.Ff.drawImageRect(k, B, x, n,
                     !1); n.dispose()
                 }; this.ellipse = function (k, n, x, B, G, H, O, Z) { p(this.Kf, k, n, x, B, G, H, O, Z) }; this.Pg = function () { var k = this.Hf.copy(); k.setStyle(a.PaintStyle.Fill); if (c(this.Uf)) { var n = a.multiplyByAlpha(this.Uf, this.cg); k.setColor(n) } else n = this.Uf.ng(this.Lf), k.setColor(a.Color(0, 0, 0, this.cg)), k.setShader(n); k.dispose = function () { this.delete() }; return k }; this.fill = function (k, n) {
                   "string" === typeof k ? (n = k, k = this.Kf) : k && k.Xg && (k = k.Nf); if ("evenodd" === n) this.Kf.setFillType(a.FillType.EvenOdd); else {

@@ -55,7 +55,7 @@ export interface ImageBitmap {
 export interface Element { }
 
 export interface HTMLCanvasElement { }
-export type CanvasImageSource = EmulatedCanvas2D | ImageBitmap;
+export type CanvasImageSource = EmulatedCanvas2D | ImageBitmap | EmbindObject<SkImage>;
 
 export interface DOMMatrixReadOnly {
     readonly a: number;

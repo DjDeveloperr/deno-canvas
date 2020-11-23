@@ -9,9 +9,8 @@ Import from https://deno.land/x/canvas@v1.0.0/mod.ts or just import from raw Git
 mod.ts provides a default export exposing the complete CanvasKit API, and other exports from the file are types and util functions.
 
 ```ts
-import Canvas, { CanvasRenderingContext2D } from '../mod.ts'
+import Canvas, { CanvasRenderingContext2D, dataURLtoFile } from 'https://deno.land/x/canvas@v1.0.0/mod.ts'
 import { serve } from "https://deno.land/std@0.78.0/http/server.ts";
-import { dataURLtoFile } from "../utils.ts";
 
 const canvas = Canvas.MakeCanvas(200, 200);
 const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;

@@ -3,7 +3,7 @@
 Canvas API for Deno, ported from [canvaskit-wasm (Skia)](https://github.com/google/skia/tree/master/modules/canvaskit). 
 
 ## Installation
-Just import from raw GitHub URL, https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/mod.ts. I'll publish on deno.land soon.
+Import from https://deno.land/x/canvas@v1.0.0/mod.ts or just import from raw GitHub URL, https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/mod.ts.
 
 ## Usage
 mod.ts provides a default export exposing the complete CanvasKit API, and other exports from the file are types and util functions.

@@ -34,5 +34,5 @@ const image = await loadImage(myURL);
 ctx.drawImage(image, x, y);
 ```
 
-And run with `deno run --allow-red --allow-read filename.ts`!
+And run with `deno run --allow-net --allow-read filename.ts`!
 Or you can directly run from URL, https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/examples/square.ts

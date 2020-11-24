@@ -5,6 +5,9 @@ Canvas API for Deno, ported from [canvaskit-wasm (Skia)](https://github.com/goog
 ## Installation
 Import from https://deno.land/x/canvas@v1.0.0/mod.ts or just import from raw GitHub URL, https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/mod.ts.
 
+## Note
+The WASM file is like 6mb in size, when you import it first time and "canvaskit.wasm" is not present in the current dir, this module will download it and attempt to save. It's better to have it locally or at least give app `--allow-write` permission to avoid downloading it all again, on every import. You may also download the file [here](https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/canvaskit.wasm) from the repo and save it manually.
+
 ## Usage
 `mod.ts` provides a default export exposing the complete CanvasKit API, and other exports from the file are types and util functions.
 

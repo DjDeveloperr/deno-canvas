@@ -1,5 +1,11 @@
 let document = undefined;
-let wasmBuff = Deno.readFileSync('./canvaskit.wasm');
+let wasmBuff;
+try {
+  wasmBuff = Deno.readFileSync('./canvaskit.wasm');
+} catch(e) {
+  wasmBuff = await fetch("https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/canvaskit.wasm").then(r => r.arrayBuffer()).then(buff => new Uint8Array(buff));
+  try { Deno.writeFileSync('./canvaskit.wasm', wasmBuff); } catch(e) {}
+}
 let wasmMod = new WebAssembly.Module(wasmBuff);
 
 let storeWasm;

@@ -831,9 +831,11 @@ export interface EmulatedCanvas2D {
 
     /**
      * Returns an emulated canvas2d context if type == '2d', null otherwise.
+     * 
+     * null is not added as return type here, but '2d' is the ONLY valid context here.
      * @param type
      */
-    getContext(type: string): EmulatedCanvas2DContext | null;
+    getContext(type: '2d' | string): EmulatedCanvas2DContext;
 
     /**
      * Loads the given font with the given descriptors. Emulates new FontFace().
@@ -841,6 +843,13 @@ export interface EmulatedCanvas2D {
      * @param descriptors
      */
     loadFont(bytes: ArrayBuffer | Uint8Array, descriptors: object): void;
+
+    /**
+     * Registers a font into Canvas. (node-canvas compatibility)
+     * @param src Source of the font (Path/URL)
+     * @param descriptors
+     */
+    registerFont(src: string, descriptors: object): void;
 
     /**
      * Returns an new emulated Path2D object.
@@ -854,6 +863,11 @@ export interface EmulatedCanvas2D {
      * @param quality
      */
     toDataURL(codec?: string, quality?: number): string;
+
+    /**
+     * Returns Buffer containing Image data.
+     */
+    toBuffer(): Uint8Array;
 }
 
 /** Part of the Canvas2D emulation code */

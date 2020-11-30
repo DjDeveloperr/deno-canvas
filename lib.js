@@ -360,6 +360,11 @@ export const CanvasKitInit = (function () {
                       } return k + n
                     }
                   }
+                }; this.toBuffer = function() {
+                  return Uint8Array.from(atob(this.toDataURL().split(',').pop()), c => c.charCodeAt(0))
+                }; this.registerFont = async function(src, desc) {
+                  let data = src.startsWith("http:") || src.startsWith("https:") ? await fetch(src).then(res => res.buffer()) : await Deno.readFile(src);
+                  return this.loadFont(data, desc);
                 }; this.dispose = function () { this.fg.dg(); this.Rg.forEach(function (k) { k.delete() }); this.$g.dispose() }
               } function e(J, k, n) {
                 if (!k || 0 === n) throw "invalid dimensions, width and height must be non-zero"; if (J.length % 4) throw "arr must be a multiple of 4"; n = n || J.length / (4 * k); Object.defineProperty(this, "data", { value: J, writable: !1 }); Object.defineProperty(this, "height", { value: n, writable: !1 }); Object.defineProperty(this,

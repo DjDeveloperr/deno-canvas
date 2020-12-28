@@ -1,4 +1,4 @@
-let document = undefined;
+let document = { getElementById: () => undefined };
 let wasmBuff;
 try {
   wasmBuff = Deno.readFileSync('./canvaskit.wasm');

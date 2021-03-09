@@ -9,7 +9,7 @@ Import from https://deno.land/x/canvas/mod.ts or just import from raw GitHub URL
 `mod.ts` provides a default export exposing the complete CanvasKit API, and other exports from the file are types and util functions.
 
 ```ts
-import Canvas from 'https://deno.land/x/canvas@v1.1.0/mod.ts'
+import Canvas from 'https://deno.land/x/canvas@v1.1.1/mod.ts'
 import { serve } from "https://deno.land/std@0.89.0/http/server.ts";
 
 const canvas = Canvas.MakeCanvas(200, 200);

@@ -1,5 +1,5 @@
 import Canvas from '../mod.ts'
-import { serve } from "https://deno.land/std@0.78.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.89.0/http/server.ts";
 
 const canvas = Canvas.MakeCanvas(200, 200);
 const ctx = canvas.getContext('2d');

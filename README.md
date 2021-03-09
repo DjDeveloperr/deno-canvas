@@ -5,18 +5,15 @@ Canvas API for Deno, ported from [canvaskit-wasm (Skia)](https://github.com/goog
 ## Installation
 Import from https://deno.land/x/canvas/mod.ts or just import from raw GitHub URL, https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/mod.ts.
 
-## Note
-The WASM file is like 6mb in size, when you import it first time and "canvaskit.wasm" is not present in the current dir, this module will download it and attempt to save. It's better to have it locally or at least give app `--allow-write` permission to avoid downloading it all again, on every import. You may also download the file [here](https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/canvaskit.wasm) from the repo and save it manually.
-
 ## Usage
 `mod.ts` provides a default export exposing the complete CanvasKit API, and other exports from the file are types and util functions.
 
 ```ts
-import Canvas, { CanvasRenderingContext2D, dataURLtoFile } from 'https://deno.land/x/canvas@v.1.0.5/mod.ts'
-import { serve } from "https://deno.land/std@0.78.0/http/server.ts";
+import Canvas from 'https://deno.land/x/canvas@v1.1.0/mod.ts'
+import { serve } from "https://deno.land/std@0.89.0/http/server.ts";
 
 const canvas = Canvas.MakeCanvas(200, 200);
-const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+const ctx = canvas.getContext('2d');
 
 ctx.fillStyle = 'red';
 ctx.fillRect(10, 10, 200 - 20, 200 - 20);
@@ -29,10 +26,8 @@ for await (const request of server) {
 }
 ```
 
-And run with `deno run --allow-net --allow-read filename.ts`.
+And run with `deno run --allow-net filename.ts`.
 Or you can directly run from URL, https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/examples/square.ts
-
-> As mentioned before, `--allow-write` for first time will download wasm binary locally.
 
 For using images, use `loadImage` method exported from `mod.ts`.
 ```ts

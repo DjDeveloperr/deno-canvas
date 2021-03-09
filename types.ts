@@ -835,7 +835,8 @@ export interface EmulatedCanvas2D {
      * null is not added as return type here, but '2d' is the ONLY valid context here.
      * @param type
      */
-    getContext(type: '2d' | string): EmulatedCanvas2DContext;
+    getContext(type: '2d'): EmulatedCanvas2DContext;
+    getContext(type: '2d' | string): EmulatedCanvas2DContext | null;
 
     /**
      * Loads the given font with the given descriptors. Emulates new FontFace().

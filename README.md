@@ -12,7 +12,7 @@ The WASM file is like 6mb in size, when you import it first time and "canvaskit.
 `mod.ts` provides a default export exposing the complete CanvasKit API, and other exports from the file are types and util functions.
 
 ```ts
-import Canvas, { CanvasRenderingContext2D, dataURLtoFile } from 'https://deno.land/x/canvas@v1.0.0/mod.ts'
+import Canvas, { CanvasRenderingContext2D, dataURLtoFile } from 'https://deno.land/x/canvas@v.1.0.5/mod.ts'
 import { serve } from "https://deno.land/std@0.78.0/http/server.ts";
 
 const canvas = Canvas.MakeCanvas(200, 200);

@@ -1,8 +1,7 @@
-import * as lib from "./lib.js";
-import { CanvasKit } from "./types.ts";
 import { fetchAuto } from './deps.ts'
+import init from "./canvaskit.ts";
 
-const Canvas = await lib.CanvasKitInit({}) as CanvasKit;
+const Canvas = await init();
 
 export function dataURLtoFile(dataurl: string) {
     let arr: string[] = dataurl.split(',');
@@ -22,7 +21,7 @@ export async function loadImage(url: string) {
     return img;
 }
 
-export const createCanvas = Canvas.MakeCanvas
+export const createCanvas = Canvas.MakeCanvas;
 
-export * from "./types.ts"
-export default Canvas
+export * from "./types.ts";
+export default Canvas;

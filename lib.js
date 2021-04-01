@@ -464,10 +464,9 @@ export const CanvasKitInit = (function () {
           g[3] = Math.max(0, Math.min(g[3] * r, 1));
           return g;
         };
-        var kb =
-            !(new Function(
-              "try {return this===window;}catch(e){ return false;}",
-            ))(),
+        var kb = !(new Function(
+            "try {return this===window;}catch(e){ return false;}",
+          ))(),
           Cb = Float32Array.of(0, 0, 1),
           ib = 0,
           ec,
@@ -581,9 +580,7 @@ export const CanvasKitInit = (function () {
           }
           function r(e) {
             for (var l = e * e, t = Array(l); l--;) {
-              t[l] = 0 == l % (e + 1)
-                ? 1
-                : 0;
+              t[l] = 0 == l % (e + 1) ? 1 : 0;
             }
             return t;
           }
@@ -606,7 +603,8 @@ export const CanvasKitInit = (function () {
           }
           function M(e, l) {
             for (
-              var t = D(l[0], l[1], e), w = 2; w < l.length;
+              var t = D(l[0], l[1], e), w = 2;
+              w < l.length;
             ) {
               t = D(t, l[w], e), w++;
             }
@@ -2816,14 +2814,18 @@ export const CanvasKitInit = (function () {
 
             this.measureText = function (k) {
               let width = this.gg.measureText(k);
-              let glyphBounds = this.gg.getGlyphBounds(k).reduce((all,one,i) => {
-                const ch = Math.floor(i/4); 
-                all[ch] = [].concat((all[ch]||[]),one); 
-                return all
-              }, []);
-              return { 
+              let glyphBounds = this.gg.getGlyphBounds(k).reduce(
+                (all, one, i) => {
+                  const ch = Math.floor(i / 4);
+                  all[ch] = [].concat((all[ch] || []), one);
+                  return all;
+                },
+                [],
+              );
+              let actualBoundingBoxAscent = ((glyphBounds.map(e => e[1]).reduce((p, a) => p + a, 0)) * -1) / glyphBounds.length;
+              return {
                 width,
-                actualBoundingBoxAscent: glyphBounds.map(e => ((e[1])).reduce((p,a)=>p+a) * -1) / glyphBounds.length,
+                actualBoundingBoxAscent,
               };
             };
 
@@ -3119,7 +3121,8 @@ export const CanvasKitInit = (function () {
                     x = 0;
                     B = n.length;
                     for (
-                      var G = "", H; x < B;
+                      var G = "", H;
+                      x < B;
                     ) {
                       H = n.slice(x, Math.min(x + 32768, B)),
                         G += String.fromCharCode.apply(null, H),
@@ -3648,10 +3651,8 @@ export const CanvasKitInit = (function () {
       } else if (
         xa || ya
       ) {
-        ya
-          ? Ba = self.location.href
-          : (document || {}).currentScript &&
-            (Ba = (document || {}).currentScript.src),
+        ya ? Ba = self.location.href : (document || {}).currentScript &&
+          (Ba = (document || {}).currentScript.src),
           _scriptDir && (Ba = _scriptDir),
           0 !== Ba.indexOf("blob:")
             ? Ba = Ba.substr(0, Ba.lastIndexOf("/") + 1)
@@ -4159,7 +4160,8 @@ export const CanvasKitInit = (function () {
       }
       function Ac(a, b, c) {
         for (
-          ; b !== c;
+          ;
+          b !== c;
         ) {
           b.Og ||
           W(
@@ -4195,9 +4197,9 @@ export const CanvasKitInit = (function () {
           W("Cannot pass deleted object as a pointer of type " + this.name);
         !this.Sg && b.Ef.Pf.Sg &&
           W(
-            "Cannot convert argument of type " + (b.Ef.$f
-              ? b.Ef.$f.name
-              : b.Ef.Pf.name) + " to parameter type " + this.name,
+            "Cannot convert argument of type " +
+              (b.Ef.$f ? b.Ef.$f.name : b.Ef.Pf.name) + " to parameter type " +
+              this.name,
           );
         c = Ac(b.Ef.If, b.Ef.Pf.Jf, this.Jf);
         if (this.Tg) {
@@ -4206,13 +4208,12 @@ export const CanvasKitInit = (function () {
             W("Passing raw pointer to smart pointer is illegal"), this.hi
           ) {
             case 0:
-              b.Ef.$f === this
-                ? c = b.Ef.Xf
-                : W(
-                  "Cannot convert argument of type " + (b.Ef.$f
-                    ? b.Ef.$f.name
-                    : b.Ef.Pf.name) + " to parameter type " + this.name,
-                );
+              b.Ef.$f === this ? c = b.Ef.Xf : W(
+                "Cannot convert argument of type " + (b.Ef.$f
+                  ? b.Ef.$f.name
+                  : b.Ef.Pf.name) +
+                  " to parameter type " + this.name,
+              );
               break;
             case 1:
               c = b.Ef.Xf;
@@ -4259,7 +4260,8 @@ export const CanvasKitInit = (function () {
       var Hc = {};
       function Ic(a, b) {
         for (
-          void 0 === b && W("ptr should not be undefined"); a.bg;
+          void 0 === b && W("ptr should not be undefined");
+          a.bg;
         ) {
           b = a.Og(b), a = a.bg;
         }
@@ -4364,7 +4366,9 @@ export const CanvasKitInit = (function () {
         d = [W, d, h, Pb, b[0], b[1]];
         q && (a += "var thisWired = classParam.toWireType(" + N + ", this);\n");
         for (
-          c = 0; c < m - 2; ++c
+          c = 0;
+          c < m - 2;
+          ++c
         ) {
           a += "var arg" + c + "Wired = argType" + c + ".toWireType(" + N +
             ", arg" + c + "); // " + b[c + 2].name + "\n",
@@ -4379,9 +4383,7 @@ export const CanvasKitInit = (function () {
         if (u) a += "runDestructors(destructors);\n";
         else {
           for (c = q ? 1 : 2; c < b.length; ++c) {
-            m = 1 === c
-              ? "thisWired"
-              : "arg" + (c - 2) + "Wired",
+            m = 1 === c ? "thisWired" : "arg" + (c - 2) + "Wired",
               null !== b[c].Wf &&
               (a += m + "_dtor(" + m + "); // " + b[c].name + "\n",
                 E.push(m + "_dtor"),
@@ -4765,9 +4767,8 @@ export const CanvasKitInit = (function () {
               PATH: "/",
               PWD: "/",
               HOME: "/home/web_user",
-              LANG:
-                ("object" === typeof navigator && navigator.languages &&
-                    navigator.languages[0] || "C").replace("-", "_") + ".UTF-8",
+              LANG: ("object" === typeof navigator && navigator.languages &&
+                  navigator.languages[0] || "C").replace("-", "_") + ".UTF-8",
               _: va || "./this.program",
             },
             b;
@@ -4807,7 +4808,8 @@ export const CanvasKitInit = (function () {
       function $d(a, b, c, d) {
         function h(z, R, T) {
           for (
-            z = "number" === typeof z ? z.toString() : z || ""; z.length < R;
+            z = "number" === typeof z ? z.toString() : z || "";
+            z.length < R;
           ) {
             z = T[0] + z;
           }
@@ -4976,9 +4978,7 @@ export const CanvasKitInit = (function () {
               ? m(
                 Math.ceil(
                   (31 - T.getDate() + (Wd(
-                    Vd(z.getFullYear())
-                      ? Xd
-                      : Yd,
+                    Vd(z.getFullYear()) ? Xd : Yd,
                     z.getMonth() - 1,
                   ) - 31) + z.getDate()) / 7,
                 ),
@@ -4993,18 +4993,14 @@ export const CanvasKitInit = (function () {
               T = u(new Date(z.Tf + 1900, 0, 4));
             R = u(R);
             var da = Zd(new Date(z.Tf + 1900, 0, 1), z.Wg);
-            return 0 > q(da, T)
-              ? "53"
-              : 0 >= q(R, da)
-              ? "01"
-              : m(
-                Math.ceil(
-                  (T.getFullYear() < z.Tf + 1900
-                    ? z.Wg + 32 - T.getDate()
-                    : z.Wg + 1 - T.getDate()) / 7,
-                ),
-                2,
-              );
+            return 0 > q(da, T) ? "53" : 0 >= q(R, da) ? "01" : m(
+              Math.ceil(
+                (T.getFullYear() < z.Tf + 1900
+                  ? z.Wg + 32 - T.getDate()
+                  : z.Wg + 1 - T.getDate()) / 7,
+              ),
+              2,
+            );
           },
           "%w": function (z) {
             return z.Vg;
@@ -5019,9 +5015,7 @@ export const CanvasKitInit = (function () {
               ? m(
                 Math.ceil(
                   (31 - T.getDate() + (Wd(
-                    Vd(z.getFullYear())
-                      ? Xd
-                      : Yd,
+                    Vd(z.getFullYear()) ? Xd : Yd,
                     z.getMonth() - 1,
                   ) - 31) + z.getDate()) / 7,
                 ),
@@ -5638,17 +5632,16 @@ export const CanvasKitInit = (function () {
             var q = mb;
             return new h(gb, q[m + 1], q[m]);
           }
-          var h =
-            [
-              Int8Array,
-              Uint8Array,
-              Int16Array,
-              Uint16Array,
-              Int32Array,
-              Uint32Array,
-              Float32Array,
-              Float64Array,
-            ][b];
+          var h = [
+            Int8Array,
+            Uint8Array,
+            Int16Array,
+            Uint16Array,
+            Int32Array,
+            Uint32Array,
+            Float32Array,
+            Float64Array,
+          ][b];
           c = dc(c);
           $b(a, {
             name: c,
@@ -5753,7 +5746,9 @@ export const CanvasKitInit = (function () {
             name: c,
             fromWireType: function (y) {
               for (
-                var E = mb[y >> 2], I = q(), N, Q = y + 4, z = 0; z <= E; ++z
+                var E = mb[y >> 2], I = q(), N, Q = y + 4, z = 0;
+                z <= E;
+                ++z
               ) {
                 var R = y + 4 + z * b;
                 if (z == E || 0 == I[R >> u]) {
@@ -5850,7 +5845,9 @@ export const CanvasKitInit = (function () {
             "(handle, name, destructors, args) {\n";
           var y = 0;
           for (
-            u = 0; u < a - 1; ++u
+            u = 0;
+            u < a - 1;
+            ++u
           ) {
             d += "    var arg" + u + " = argType" + u +
               ".readValueFromPointer(args" + (y ? "+" + y : "") + ");\n",
@@ -6349,7 +6346,9 @@ export const CanvasKitInit = (function () {
           var b = ud[a];
           a = Cd[a] = { th: {}, hh: 0, Jg: -1, Kg: -1 };
           for (
-            var c = a.th, d = Y.getProgramParameter(b, 35718), h = 0; h < d; ++h
+            var c = a.th, d = Y.getProgramParameter(b, 35718), h = 0;
+            h < d;
+            ++h
           ) {
             var m = Y.getActiveUniform(b, h), q = m.name;
             a.hh = Math.max(a.hh, q.length + 1);
@@ -6360,7 +6359,9 @@ export const CanvasKitInit = (function () {
               c[q] = [m.size, y];
               X[y] = u;
               for (
-                var E = 1; E < m.size; ++E
+                var E = 1;
+                E < m.size;
+                ++E
               ) {
                 u = Y.getUniformLocation(b, q + "[" + E + "]"),
                   y = fa(X),

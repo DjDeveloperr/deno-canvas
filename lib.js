@@ -2822,7 +2822,7 @@ export const CanvasKitInit = (function () {
                 },
                 [],
               );
-              let actualBoundingBoxAscent = ((glyphBounds.map(e => e[1]).reduce((p, a) => p + a, 0)) * -1) / glyphBounds.length;
+              let actualBoundingBoxAscent = (Math.abs(glyphBounds.map(e => e[1]).reduce((p, a) => p + a, 0))) / glyphBounds.length;
               return {
                 width,
                 actualBoundingBoxAscent,
@@ -6919,9 +6919,13 @@ export const CanvasKitInit = (function () {
           a(h.instance);
         }
         function c(h) {
-          return Hb().then(function (m) {
+          return Promise.resolve().then(function (m) {
             return new Promise((res) =>
-              res(new WebAssembly.Instance(wasmMod, d))
+              {
+                const inst = new WebAssembly.Instance(wasmMod, d);
+                storeWasm = inst;
+                return res(inst);
+              }
             );
           }).then(h, function (m) {
             Ka("failed to asynchronously prepare wasm: " + m);

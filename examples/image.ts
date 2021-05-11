@@ -10,6 +10,9 @@ ctx.fillRect(10, 10, 200 - 20, 200 - 20);
 const img = await loadImage("https://cdn.discordapp.com/emojis/587737413330272291.gif?v=1");
 ctx.drawImage(img, 100 - img.width() / 2, 100 - img.height() / 2);
 
+ctx.font = '30px Impact'
+console.log(ctx.measureText('3'), (ctx as any).gg.getGlyphBounds('3'));
+
 const server = serve({ hostname: "0.0.0.0", port: 8080 });
 console.log(`HTTP webserver running. Access it at: http://localhost:8080/`);
 

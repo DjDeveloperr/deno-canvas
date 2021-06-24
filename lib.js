@@ -464,9 +464,9 @@ export const CanvasKitInit = (function () {
           g[3] = Math.max(0, Math.min(g[3] * r, 1));
           return g;
         };
-        var kb = !(new Function(
-            "try {return this===window;}catch(e){ return false;}",
-          ))(),
+        var kb = !(function () {
+            try { return this === window; } catch(e) { return false; }
+          })(),
           Cb = Float32Array.of(0, 0, 1),
           ib = 0,
           ec,

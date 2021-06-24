@@ -1,4 +1,4 @@
-import { createCanvas } from "https://deno.land/x/canvas@v1.2.1/mod.ts";
+import { createCanvas } from "https://deno.land/x/canvas@v1.2.2/mod.ts";
 import { h } from "https://x.lcas.dev/preact@10.5.12/mod.js";
 import { renderToString } from "https://x.lcas.dev/preact@10.5.12/ssr.js";
 

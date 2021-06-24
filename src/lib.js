@@ -1,14 +1,9 @@
-import { decode } from "./deps.ts";
+import { decodeBase64 } from "./base64.ts";
 import { WASM_BASE64 } from "./wasm.js";
 
-let now = performance.now();
+// Some compatibility stuff
 let document = { getElementById: () => undefined };
-let wasmBuff;
-try {
-  wasmBuff = Deno.core.opSync("op_base64_decode", WASM_BASE64);
-} catch(e) {
-  wasmBuff = decode(WASM_BASE64);
-}
+let wasmBuff = decodeBase64(WASM_BASE64);
 let storeWasm;
 
 export const CanvasKitInit = (function () {

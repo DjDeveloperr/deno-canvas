@@ -1,17 +1,16 @@
-import Canvas, { loadImage } from '../mod.ts'
-import { serve } from "https://deno.land/std@0.89.0/http/server.ts";
+import { createCanvas, loadImage } from "../mod.ts";
+import { serve } from "https://deno.land/std@0.99.0/http/server.ts";
 
-const canvas = Canvas.MakeCanvas(200, 200);
-const ctx = canvas.getContext('2d');
+const canvas = createCanvas(200, 200);
+const ctx = canvas.getContext("2d");
 
-ctx.fillStyle = 'red';
+ctx.fillStyle = "red";
 ctx.fillRect(10, 10, 200 - 20, 200 - 20);
 
-const img = await loadImage("https://cdn.discordapp.com/emojis/587737413330272291.gif?v=1");
+const img = await loadImage(
+  "https://cdn.discordapp.com/emojis/587737413330272291.gif?v=1",
+);
 ctx.drawImage(img, 100 - img.width() / 2, 100 - img.height() / 2);
-
-ctx.font = '30px Impact'
-console.log(ctx.measureText('3'), (ctx as any).gg.getGlyphBounds('3'));
 
 const server = serve({ hostname: "0.0.0.0", port: 8080 });
 console.log(`HTTP webserver running. Access it at: http://localhost:8080/`);

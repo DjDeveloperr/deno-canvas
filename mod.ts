@@ -1,27 +1,34 @@
-import { fetchAuto } from './deps.ts'
-import init from "./canvaskit.ts";
+import init from "./src/canvaskit.ts";
+import { decodeBase64 } from "./src/base64.ts";
 
-const Canvas = await init();
+const canvas = await init();
 
 export function dataURLtoFile(dataurl: string) {
-    let arr: string[] = dataurl.split(',');
-    let bstr = atob(arr[1]);
-    let n = bstr.length;
-    let data = new Uint8Array(n);
-    while(n--){
-        data[n] = bstr.charCodeAt(n);
-    }
-    return data;
+  let arr: string[] = dataurl.split(",");
+  return decodeBase64(arr[1]);
 }
 
-export async function loadImage(url: string) {
-    const base64 = await fetchAuto(url);
-    const img = Canvas.MakeImageFromEncoded(dataURLtoFile(base64));
-    if(!img) throw new Error("Invalid Image");
-    return img;
+export async function loadImage(url: string | Uint8Array) {
+  let data;
+
+  if (url instanceof Uint8Array) {
+    data = url;
+  } else if (url.startsWith("http")) {
+    data = await fetch(url).then((e) => e.arrayBuffer()).then((e) =>
+      new Uint8Array(e)
+    );
+  } else {
+    data = await Deno.readFile(url);
+  }
+
+  const img = canvas.MakeImageFromEncoded(data);
+  if (!img) throw new Error("Invalid image data");
+
+  return img;
 }
 
-export const createCanvas = Canvas.MakeCanvas;
+export const createCanvas = canvas.MakeCanvas;
 
-export * from "./types.ts";
-export default Canvas;
+export * from "./src/types.ts";
+export default canvas;
+export * from "./src/base64.ts";

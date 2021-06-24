@@ -1,2 +1,3 @@
 /.vscode
-/canvaskit.wasm
+/src/canvaskit.wasm
+/image.png

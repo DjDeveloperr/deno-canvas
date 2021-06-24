@@ -868,7 +868,7 @@ export interface EmulatedCanvas2D {
     /**
      * Returns Buffer containing Image data.
      */
-    toBuffer(): Uint8Array;
+    toBuffer(mimeType?: 'image/png' | 'image/jpeg'): Uint8Array;
 }
 
 /** Part of the Canvas2D emulation code */

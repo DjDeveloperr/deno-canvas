@@ -1,9 +1,14 @@
 import { decode } from "./deps.ts";
 import { WASM_BASE64 } from "./wasm.js";
 
+let now = performance.now();
 let document = { getElementById: () => undefined };
-let wasmBuff = decode(WASM_BASE64);
-let wasmMod = new WebAssembly.Module(wasmBuff);
+let wasmBuff;
+try {
+  wasmBuff = Deno.core.opSync("op_base64_decode", WASM_BASE64);
+} catch(e) {
+  wasmBuff = decode(WASM_BASE64);
+}
 let storeWasm;
 
 export const CanvasKitInit = (function () {
@@ -6927,13 +6932,12 @@ export const CanvasKitInit = (function () {
         }
         function c(h) {
           return Promise.resolve().then(function (m) {
-            return new Promise((res) =>
-              {
-                const inst = new WebAssembly.Instance(wasmMod, d);
+            return new Promise((res) => {
+              WebAssembly.instantiate(wasmBuff, d).then(({ instance: inst }) => {
                 storeWasm = inst;
                 return res(inst);
-              }
-            );
+              });
+            });
           }).then(h, function (m) {
             Ka("failed to asynchronously prepare wasm: " + m);
             Ia(m);
@@ -6961,9 +6965,10 @@ export const CanvasKitInit = (function () {
           }
           new Promise((res) => res(true)).then(function () {
             return new Promise((res) => {
-              let wA = new WebAssembly.Instance(wasmMod, d);
-              storeWasm = wA;
-              res(wA);
+              WebAssembly.instantiate(wasmBuff, d).then(({ instance: inst }) => {
+                storeWasm = inst;
+                return res(inst);
+              });
             }).then(b, function (m) {
               Ka("wasm streaming compile failed: " + m);
               Ka("falling back to ArrayBuffer instantiation");

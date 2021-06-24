@@ -3134,11 +3134,18 @@ export const CanvasKitInit = (function () {
                 }
               }
             };
-            this.toBuffer = function () {
-              return Uint8Array.from(
-                atob(this.toDataURL().split(",").pop()),
-                (c) => c.charCodeAt(0),
-              );
+            this.toBuffer = function (k, n) {
+              this.$g.flush();
+              var x = this.$g.makeImageSnapshot();
+              if (x) {
+                k = k || "image/png";
+                var B = a.ImageFormat.PNG;
+                "image/jpeg" === k && (B = a.ImageFormat.JPEG);
+                if (n = x.encodeToData(B, n || .92)) {
+                  n = a.getSkDataBytes(n);
+                  return n;
+                }
+              }
             };
             this.registerFont = async function (src, desc) {
               let data = src.startsWith("http:") || src.startsWith("https:")

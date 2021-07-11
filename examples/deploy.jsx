@@ -13,7 +13,7 @@ function App({ color }) {
         <meta name="og:description" content={`Maybe RGB here`} />
         <meta name="og:image" content={`/color/${color}`} />
       </head>
-      <body></body>
+      <body>Check embed :)</body>
     </html>
   );
 }
@@ -22,11 +22,17 @@ addEventListener("fetch", (evt) => {
   const url = new URL(evt.request.url);
 
   if (url.pathname.startsWith("/color")) {
+    console.log("Endpoint: /color");
     const col = url.pathname.slice(6).trim();
+    console.log("- Color:", col);
     const cvs = createCanvas(100, 100);
+    console.log("- Created Canvas");
     const ctx = cvs.getContext("2d");
+    console.log("- Retreive Context");
     ctx.fillStyle = `#${col}`;
+    console.log("- Fill Color");
     ctx.fillRect(0, 0, 100, 100);
+    console.log("- Respond with Image Buffer");
     evt.respondWith(
       new Response(cvs.toBuffer(), {
         headers: {
@@ -35,6 +41,7 @@ addEventListener("fetch", (evt) => {
       })
     );
   } else {
+    console.log("Endpoint: Misc (" + url.pathname + ")");
     evt.respondWith(
       new Response(renderToString(<App color={url.pathname.slice(1)} />), {
         headers: { "content-type": "text/html; charset=utf-8" },

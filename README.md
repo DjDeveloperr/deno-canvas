@@ -1,7 +1,7 @@
 # deno-canvas
 
 Canvas API for Deno, ported from
-[canvaskit-wasm (Skia)](https://github.com/google/skia/tree/master/modules/canvaskit).
+[canvaskit-wasm (Skia)](https://github.com/google/skia/tree/main/modules/canvaskit).
 
 ## Installation
 

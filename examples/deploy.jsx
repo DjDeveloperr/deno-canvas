@@ -1,5 +1,5 @@
 // import { createCanvas } from "https://deno.land/x/canvas@v1.2.2/mod.ts";
-import { createCanvas } from "../mod.ts";
+import { createCanvas, init } from "../src/canvas.ts";
 import { h } from "https://x.lcas.dev/preact@10.5.12/mod.js";
 import { renderToString } from "https://x.lcas.dev/preact@10.5.12/ssr.js";
 
@@ -18,13 +18,14 @@ function App({ color }) {
   );
 }
 
-addEventListener("fetch", (evt) => {
+addEventListener("fetch", async (evt) => {
   const url = new URL(evt.request.url);
 
   if (url.pathname.startsWith("/color")) {
     console.log("Endpoint: /color");
     const col = url.pathname.slice(6).trim();
     console.log("- Color:", col);
+    await init();
     const cvs = createCanvas(100, 100);
     console.log("- Created Canvas");
     const ctx = cvs.getContext("2d");

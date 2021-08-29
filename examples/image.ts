@@ -1,5 +1,4 @@
 import { createCanvas, loadImage } from "../mod.ts";
-import { serve } from "https://deno.land/std@0.99.0/http/server.ts";
 
 const canvas = createCanvas(200, 200);
 const ctx = canvas.getContext("2d");
@@ -12,9 +11,4 @@ const img = await loadImage(
 );
 ctx.drawImage(img, 100 - img.width() / 2, 100 - img.height() / 2);
 
-const server = serve({ hostname: "0.0.0.0", port: 8080 });
-console.log(`HTTP webserver running. Access it at: http://localhost:8080/`);
-
-for await (const request of server) {
-  request.respond({ status: 200, body: canvas.toBuffer() });
-}
+await Deno.writeFile("image.png", canvas.toBuffer());

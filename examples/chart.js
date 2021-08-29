@@ -25,18 +25,15 @@ class DenoPlatform extends chartjs.BasePlatform {
 export function render(width, height, chartjsConfig, imageType="image/png") {
   // Init globals once
   globalInit();
+
   // Create canvas
   const canvas = createCanvas(width, height);
+
   // Patch options
   chartjsConfig.options = chartjsConfig.options || {};
   chartjsConfig.options.responsive = false;
   chartjsConfig.options.animation = false;
-  // Temporarily patch console.error, since we'll fail with
-  // console.error("Failed to create chart: can't acquire context from the given item");
-  // due to ctx not having a .canvas attribute
-  const oldConsoleError = globalThis.console.error;
-  globalThis.console.error = () => {};
-  // Init chart, expect to fail
+
   const chart = new chartjs.Chart(
     canvas,
     {
@@ -44,12 +41,7 @@ export function render(width, height, chartjsConfig, imageType="image/png") {
       platform: DenoPlatform,
     },
   );
-  // Restore console.error
-  globalThis.console.error = oldConsoleError;
-  // Finish init: set canvas, width & height
-  chart.canvas = canvas;
-  chart.width = width;
-  chart.height = height;
+
   // Do render
   chart._initialize();
   chart.update();
@@ -72,7 +64,7 @@ const data = {
     label: 'My First dataset',
     backgroundColor: 'rgb(255, 99, 132)',
     borderColor: 'rgb(255, 99, 132)',
-    data: [0, 10, 5, 2, 20, 30, 45],
+    data: [3, 10, 5, 2, 20, 30, 45],
   }]
 };
 

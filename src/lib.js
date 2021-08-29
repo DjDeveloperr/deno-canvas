@@ -3055,7 +3055,7 @@ export var CanvasKitInit = (function () {
             this.removeHitRegion = function () {};
             this.scrollPathIntoView = function () {};
             Object.defineProperty(this, "canvas", {
-              value: null,
+              value: F,
               writable: !1,
             });
           }
@@ -3086,7 +3086,12 @@ export var CanvasKitInit = (function () {
               return k;
             };
             this.getContext = function (k) {
-              return "2d" === k ? this.re : null;
+              const ctx = "2d" === k ? this.re : null;
+              if (null !== ctx && ctx.canvas) {
+                ctx.canvas.width = this.width;
+                ctx.canvas.height = this.height;
+              }
+              return ctx;
             };
             this.toDataURL = function (k, n) {
               this.hf.flush();
@@ -3528,7 +3533,12 @@ export var CanvasKitInit = (function () {
             la = { "Noto Mono": { "*": null }, monospace: { "*": null } };
           a._testing.parseFontString = m;
           a.MakeCanvas = function (F, k) {
-            return (F = a.MakeSurface(F, k)) ? new z(F) : null;
+            const canvas = (F = a.MakeSurface(F, k)) ? new z(F) : null;
+            if (null !== canvas) {
+              canvas.width = F.Gf;
+              canvas.height = F.Df;
+            }
+            return canvas;
           };
           a.ImageData = function () {
             if (2 === arguments.length) {

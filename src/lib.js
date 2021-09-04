@@ -1,8 +1,41 @@
 import { decodeBase64, encodeBase64 } from "./base64.ts";
 import { WASM_BASE64 } from "./wasm.js";
+import { hslToRgb } from "./color_util.ts";
 
 let document = { getElementById: () => undefined };
 let wasmBuff = decodeBase64(WASM_BASE64);
+
+function maybeHSL(k) {
+  if (typeof k === "string") {
+    const match = k.match(/^hsla?\((\d+), *(\d+)%, *(\d+)%(, *([\d\.]+))?\)$/);
+
+    if (match !== null) {
+      const h = Number(match[1]);
+      const s = Number(match[2]);
+      const l = Number(match[3]);
+      const a = k.startsWith("hsla") && match[5] ? Number(match[5]) : undefined;
+
+      k = "rgb";
+      if (a !== undefined) {
+        k += "a";
+      }
+      k += "(";
+
+      const [r, g, b] = hslToRgb(h, s, l);
+      k += r + ", ";
+      k += g + ", ";
+      k += b;
+
+      if (a !== undefined) {
+        k += ", " + a;
+      }
+
+      k += ")";
+    }
+  }
+
+  return k;
+}
 
 export var CanvasKitInit = (function () {
   var _scriptDir = typeof document !== "undefined" && document.currentScript
@@ -2218,6 +2251,7 @@ export var CanvasKitInit = (function () {
                 return f(this.fe) ? e(this.fe) : this.fe;
               },
               set: function (k) {
+                k = maybeHSL(k);
                 "string" === typeof k ? this.fe = h(k) : k.xe && (this.fe = k);
               },
             });
@@ -2515,7 +2549,7 @@ export var CanvasKitInit = (function () {
                 return e(this.Ne);
               },
               set: function (k) {
-                this.Ne = h(k);
+                this.Ne = h(maybeHSL(k));
               },
             });
             Object.defineProperty(this, "shadowOffsetX", {
@@ -2542,7 +2576,7 @@ export var CanvasKitInit = (function () {
                 return e(this.le);
               },
               set: function (k) {
-                "string" === typeof k ? this.le = h(k) : k.xe && (this.le = k);
+                "string" === typeof k ? this.le = h(maybeHSL(k)) : k.xe && (this.le = k);
               },
             });
             this.arc = function (k, n, y, B, C, E) {

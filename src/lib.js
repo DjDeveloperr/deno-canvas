@@ -1,9 +1,8 @@
-import { decodeBase64, encodeBase64 } from "./base64.ts";
-import { WASM_BASE64 } from "./wasm.js";
+import { encodeBase64 } from "./base64.ts";
+import { WASM_BUFFER as wasmBuff } from "./wasm.js";
 import { hslToRgb } from "./color_util.ts";
 
 let document = { getElementById: () => undefined };
-let wasmBuff = decodeBase64(WASM_BASE64);
 
 function maybeHSL(k) {
   if (typeof k === "string") {

@@ -2,7 +2,7 @@ import { encode } from "../deps.ts";
 
 Deno.writeTextFileSync(
   "./src/wasm.js",
-  `export const WASM_BASE64 = "${
+  `import { decodeBase64 } from "./base64.ts";\nexport const WASM_BUFFER = decodeBase64("${
     encode(Deno.readFileSync("./src/canvaskit-opt.wasm"))
-  }";`,
+  }");`,
 );

@@ -1091,6 +1091,9 @@ export interface EmulatedCanvas2D {
      * Returns Buffer containing Image data.
      */
    toBuffer(mimeType?: "image/png" | "image/jpeg"): Uint8Array;
+
+   /** Returns raw buffer, pointing to WASM memory, of underlying RGBA data with Zero Copying. */
+   getRawBuffer(x: number, y: number, width: number, height: number): Uint8Array;
 }
 
 /** Part of the Canvas2D emulation code */

@@ -1,3 +1,4 @@
 /.vscode
 /src/canvaskit.wasm
 /image.png
+/wabt

@@ -633,11 +633,11 @@ export var CanvasKitInit = (function () {
               case a.ColorType.RGBA_8888:
               case a.ColorType.RGBA_F16:
                 e = (new Uint8Array(a.HEAPU8.buffer, N, J));
-                if (!q.__raw) e = e.slice();
+                if (!q.raw) e = e.slice();
                 break;
               case a.ColorType.RGBA_F32:
                 e = (new Float32Array(a.HEAPU8.buffer, N, J));
-                if (!q.__raw) e = e.slice();
+                if (!q.raw) e = e.slice();
                 break;
               default:
                 return null;
@@ -3129,16 +3129,14 @@ export var CanvasKitInit = (function () {
               return ctx;
             };
             this.getRawBuffer = function (k, n, y, B) {
-              return (k = this.hf.getCanvas().readPixels(k, n, {
-                width: y,
-                height: B,
+              return this.hf.getCanvas().readPixels(k || 0, n || 0, {
+                width: y || this.width,
+                height: B || this.height,
                 colorType: a.ColorType.RGBA_8888,
                 alphaType: a.AlphaType.Unpremul,
                 colorSpace: a.ColorSpace.SRGB,
-                __raw: true,
-              }))
-              ? k
-              : null;
+                raw: true,
+              });
             };
             this.toDataURL = function (k, n) {
               this.hf.flush();

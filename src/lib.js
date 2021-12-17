@@ -260,9 +260,7 @@ export var CanvasKitInit = (function () {
         }
         function c(d) {
           for (var e = d * d, h = Array(e); e--;) {
-            h[e] = 0 === e % (d + 1)
-              ? 1
-              : 0;
+            h[e] = 0 === e % (d + 1) ? 1 : 0;
           }
           return h;
         }
@@ -632,11 +630,11 @@ export var CanvasKitInit = (function () {
             switch (q.colorType) {
               case a.ColorType.RGBA_8888:
               case a.ColorType.RGBA_F16:
-                e = (new Uint8Array(a.HEAPU8.buffer, N, J));
+                e = new Uint8Array(a.HEAPU8.buffer, N, J);
                 if (!q.raw) e = e.slice();
                 break;
               case a.ColorType.RGBA_F32:
-                e = (new Float32Array(a.HEAPU8.buffer, N, J));
+                e = new Float32Array(a.HEAPU8.buffer, N, J);
                 if (!q.raw) e = e.slice();
                 break;
               default:
@@ -2577,7 +2575,9 @@ export var CanvasKitInit = (function () {
                 return e(this.le);
               },
               set: function (k) {
-                "string" === typeof k ? this.le = h(maybeHSL(k)) : k.xe && (this.le = k);
+                "string" === typeof k
+                  ? this.le = h(maybeHSL(k))
+                  : k.xe && (this.le = k);
               },
             });
             this.arc = function (k, n, y, B, C, E) {
@@ -2756,7 +2756,7 @@ export var CanvasKitInit = (function () {
               let glyphBounds = this.we
                 .getGlyphBounds(txt)
                 .reduce((all, one, i) => {
-                const ch = Math.floor(i / 4);
+                  const ch = Math.floor(i / 4);
                   all[ch] = [].concat(all[ch] || [], one);
                   return all;
                 }, []);
@@ -2790,7 +2790,7 @@ export var CanvasKitInit = (function () {
                   height: B,
                   colorType: a.ColorType.RGBA_8888,
                   alphaType: a.AlphaType.Unpremul,
-                  colorSpace: a.ColorSpace.SRGB
+                  colorSpace: a.ColorSpace.SRGB,
                 }))
                 ? new D(new Uint8ClampedArray(k.buffer), y, B)
                 : null;
@@ -3985,11 +3985,17 @@ export var CanvasKitInit = (function () {
       }
       function Qb(a, b) {
         a = Pb(a);
-        return (new Function(
-          "body",
-          "return function " + a +
-            '() {\n    "use strict";    return body.apply(this, arguments);\n};\n',
-        ))(b);
+        return (function (body) {
+          const fn = function () {
+            "use strict";
+            return body.apply(this, arguments);
+          };
+          Object.defineProperty(fn, "name", {
+            enumerable: false,
+            value: a
+          });
+          return fn;
+        })(b);
       }
       function Rb(a) {
         var b = Error,
@@ -4199,9 +4205,9 @@ export var CanvasKitInit = (function () {
           V("Cannot pass deleted object as a pointer of type " + this.name);
         !this.We && b.Rd.ae.We &&
           V(
-            "Cannot convert argument of type " + (b.Rd.ke
-              ? b.Rd.ke.name
-              : b.Rd.ae.name) + " to parameter type " + this.name,
+            "Cannot convert argument of type " +
+              (b.Rd.ke ? b.Rd.ke.name : b.Rd.ae.name) + " to parameter type " +
+              this.name,
           );
         c = tc(b.Rd.Vd, b.Rd.ae.Wd, this.Wd);
         if (this.Xe) {
@@ -4210,13 +4216,12 @@ export var CanvasKitInit = (function () {
             V("Passing raw pointer to smart pointer is illegal"), this.sg
           ) {
             case 0:
-              b.Rd.ke === this
-                ? c = b.Rd.he
-                : V(
-                  "Cannot convert argument of type " + (b.Rd.ke
-                    ? b.Rd.ke.name
-                    : b.Rd.ae.name) + " to parameter type " + this.name,
-                );
+              b.Rd.ke === this ? c = b.Rd.he : V(
+                "Cannot convert argument of type " + (b.Rd.ke
+                  ? b.Rd.ke.name
+                  : b.Rd.ae.name) +
+                  " to parameter type " + this.name,
+              );
               break;
             case 1:
               c = b.Rd.he;
@@ -4812,9 +4817,8 @@ export var CanvasKitInit = (function () {
               PATH: "/",
               PWD: "/",
               HOME: "/home/web_user",
-              LANG:
-                ("object" === typeof navigator && navigator.languages &&
-                    navigator.languages[0] || "C").replace("-", "_") + ".UTF-8",
+              LANG: ("object" === typeof navigator && navigator.languages &&
+                  navigator.languages[0] || "C").replace("-", "_") + ".UTF-8",
               _: wa || "./this.program",
             },
             b;
@@ -4854,7 +4858,8 @@ export var CanvasKitInit = (function () {
       function $d(a, b, c, f) {
         function g(A, M, X) {
           for (
-            A = "number" === typeof A ? A.toString() : A || ""; A.length < M;
+            A = "number" === typeof A ? A.toString() : A || "";
+            A.length < M;
           ) {
             A = X[0] + A;
           }
@@ -5023,23 +5028,22 @@ export var CanvasKitInit = (function () {
               ? l(
                 Math.ceil(
                   (31 - X.getDate() + (Wd(
-                    Vd(A.getFullYear())
-                      ? Xd
-                      : Yd,
+                    Vd(A.getFullYear()) ? Xd : Yd,
                     A.getMonth() - 1,
                   ) - 31) + A.getDate()) / 7,
                 ),
                 2,
-              ) : 0 === p(X, M) ? "01" : "00";
+              )
+              : 0 === p(X, M)
+              ? "01"
+              : "00";
           },
           "%V": function (A) {
             var M = new Date(A.ee + 1901, 0, 4),
               X = u(new Date(A.ee + 1900, 0, 4));
             M = u(M);
             var da = Zd(new Date(A.ee + 1900, 0, 1), A.cf);
-            return 0 > p(da, X) ? "53"
-            : 0 >= p(M, da) ? "01"
-            : l(
+            return 0 > p(da, X) ? "53" : 0 >= p(M, da) ? "01" : l(
               Math.ceil(
                 (X.getFullYear() < A.ee + 1900
                   ? A.cf + 32 - X.getDate()
@@ -5061,14 +5065,15 @@ export var CanvasKitInit = (function () {
               ? l(
                 Math.ceil(
                   (31 - X.getDate() + (Wd(
-                    Vd(A.getFullYear())
-                      ? Xd
-                      : Yd,
+                    Vd(A.getFullYear()) ? Xd : Yd,
                     A.getMonth() - 1,
                   ) - 31) + A.getDate()) / 7,
                 ),
                 2,
-              ) : 0 === p(X, M) ? "01" : "00";
+              )
+              : 0 === p(X, M)
+              ? "01"
+              : "00";
           },
           "%y": function (A) {
             return (A.ee + 1900).toString().substring(2);
@@ -5246,7 +5251,9 @@ export var CanvasKitInit = (function () {
         },
         yb: function (a, b, c, f, g, l) {
           l <<= 12;
-          0 !== (f & 16) && 0 !== a % 65536 ? b = -28 : 0 !== (f & 32)
+          0 !== (f & 16) && 0 !== a % 65536
+            ? b = -28
+            : 0 !== (f & 32)
             ? (a = ge(65536, b))
               ? (he(a, 0, b),
                 Gb[a] = {
@@ -5641,17 +5648,16 @@ export var CanvasKitInit = (function () {
             var p = mb;
             return new g(gb, p[l + 1], p[l]);
           }
-          var g =
-            [
-              Int8Array,
-              Uint8Array,
-              Int16Array,
-              Uint16Array,
-              Int32Array,
-              Uint32Array,
-              Float32Array,
-              Float64Array,
-            ][b];
+          var g = [
+            Int8Array,
+            Uint8Array,
+            Int16Array,
+            Uint16Array,
+            Int32Array,
+            Uint32Array,
+            Float32Array,
+            Float64Array,
+          ][b];
           c = Yb(c);
           Vb(a, {
             name: c,
@@ -5763,7 +5769,9 @@ export var CanvasKitInit = (function () {
             name: c,
             fromWireType: function (x) {
               for (
-                var w = mb[x >> 2], H = p(), K, O = x + 4, A = 0; A <= w; ++A
+                var w = mb[x >> 2], H = p(), K, O = x + 4, A = 0;
+                A <= w;
+                ++A
               ) {
                 var M = x + 4 + A * b;
                 if (A == w || 0 == H[M >> u]) {
@@ -5896,26 +5904,50 @@ export var CanvasKitInit = (function () {
           a = dd(a);
           var g = ld[b];
           if (!g) {
-            g = "";
-            for (var l = 0; l < b; ++l) g += (0 !== l ? ", " : "") + "arg" + l;
-            var p = "return function emval_allocator_" + b +
-              "(constructor, argTypes, args) {\n";
-            for (l = 0; l < b; ++l) {
-              p += "var argType" + l +
-                " = requireRegisteredType(Module['HEAP32'][(argTypes >>> 2) + " +
-                l + '], "parameter ' + l + '");\nvar arg' + l + " = argType" +
-                l + ".readValueFromPointer(args);\nargs += argType" + l +
-                "['argPackAdvance'];\n";
-            }
-            g =
-              (new Function(
-                "requireRegisteredType",
-                "Module",
-                "__emval_register",
-                p +
-                  ("var obj = new constructor(" + g +
-                    ");\nreturn __emval_register(obj);\n}\n"),
-              ))(ad, r, xc);
+            // g = "";
+            // for (var l = 0; l < b; ++l) g += (0 !== l ? ", " : "") + "arg" + l;
+            // var p = "return function emval_allocator_" + b +
+            //   "(constructor, argTypes, args) {\n";
+            // for (l = 0; l < b; ++l) {
+            //   p += "var argType" + l +
+            //     " = requireRegisteredType(Module['HEAP32'][(argTypes >>> 2) + " +
+            //     l + '], "parameter ' + l + '");\nvar arg' + l + " = argType" +
+            //     l + ".readValueFromPointer(args);\nargs += argType" + l +
+            //     "['argPackAdvance'];\n";
+            // }
+            // g = (new Function(
+            //   "requireRegisteredType",
+            //   "Module",
+            //   "__emval_register",
+            //   p +
+            //     ("var obj = new constructor(" + g +
+            //       ");\nreturn __emval_register(obj);\n}\n"),
+            // ))(ad, r, xc);
+            g = (function (
+              requireRegisteredType,
+              Module,
+              __emval_register,
+            ) {
+              const fn = function (constructor, argTypes, args) {
+                const ARGS = [];
+                for (var l = 0; l < b; ++l) {
+                  var argType = requireRegisteredType(
+                    Module["HEAP32"][(argTypes >>> 2) + l],
+                    "parameter " + l,
+                  );
+                  var arg = argType.readValueFromPointer(args);
+                  args += argType["argPackAdvance"];
+                  ARGS.push(arg);
+                }
+                var obj = new constructor(...ARGS);
+                return __emval_register(obj);
+              };
+              Object.defineProperty(fn, "name", {
+                enumerable: false,
+                value: "emval_allocator_" + b,
+              });
+              return fn;
+            })(ad, r, xc);
             ld[b] = g;
           }
           return g(a, c, f);
@@ -6012,8 +6044,9 @@ export var CanvasKitInit = (function () {
             : W.bufferData(a, c ? G.subarray(c, c + b) : b, f);
         },
         X: function (a, b, c, f) {
-          2 <= v.version ? W.bufferSubData(a, b, G, f, c)
-          : W.bufferSubData(a, b, G.subarray(f, f + c));
+          2 <= v.version
+            ? W.bufferSubData(a, b, G, f, c)
+            : W.bufferSubData(a, b, G.subarray(f, f + c));
         },
         cc: function (a) {
           return W.checkFramebufferStatus(a);
@@ -6038,8 +6071,9 @@ export var CanvasKitInit = (function () {
         },
         ba: function (a, b, c, f, g, l, p, u) {
           2 <= v.version
-            ? W.He ? W.compressedTexImage2D(a, b, c, f, g, l, p, u)
-            : W.compressedTexImage2D(a, b, c, f, g, l, G, u, p)
+            ? W.He
+              ? W.compressedTexImage2D(a, b, c, f, g, l, p, u)
+              : W.compressedTexImage2D(a, b, c, f, g, l, G, u, p)
             : W.compressedTexImage2D(
               a,
               b,
@@ -6052,8 +6086,9 @@ export var CanvasKitInit = (function () {
         },
         ca: function (a, b, c, f, g, l, p, u, x) {
           2 <= v.version
-            ? W.He ? W.compressedTexSubImage2D(a, b, c, f, g, l, p, u, x)
-            : W.compressedTexSubImage2D(a, b, c, f, g, l, p, G, x, u)
+            ? W.He
+              ? W.compressedTexSubImage2D(a, b, c, f, g, l, p, u, x)
+              : W.compressedTexSubImage2D(a, b, c, f, g, l, p, G, x, u)
             : W.compressedTexSubImage2D(
               a,
               b,
@@ -6201,7 +6236,8 @@ export var CanvasKitInit = (function () {
         },
         Tb: function (a, b) {
           return (a = W.fenceSync(a, b))
-            ? (b = Ed(yd), a.name = b, yd[b] = a, b) : 0;
+            ? (b = Ed(yd), a.name = b, yd[b] = a, b)
+            : 0;
         },
         ta: function () {
           W.finish();
@@ -6332,7 +6368,8 @@ export var CanvasKitInit = (function () {
                 P[c >> 2] = a ? a.length + 1 : 0)
               : 35720 == b
               ? (a = W.getShaderSource(vd[a]), P[c >> 2] = a ? a.length + 1 : 0)
-              : P[c >> 2] = W.getShaderParameter(vd[a], b) : Cd(1281);
+              : P[c >> 2] = W.getShaderParameter(vd[a], b)
+            : Cd(1281);
         },
         I: function (a) {
           var b = zd[a];
@@ -6421,7 +6458,9 @@ export var CanvasKitInit = (function () {
           0 <
               x && (p = parseInt(b.slice(x + 1)) >>> 0, u = b.slice(0, x));
           return (g = g[u]) && p < g[0] &&
-              (p += g[1], f[p] = f[p] || W.getUniformLocation(a, b)) ? p : -1;
+              (p += g[1], f[p] = f[p] || W.getUniformLocation(a, b))
+            ? p
+            : -1;
         },
         Mb: function (a, b, c) {
           for (var f = Jd[b], g = 0; g < b; g++) f[g] = P[c + 4 * g >> 2];
@@ -6501,8 +6540,9 @@ export var CanvasKitInit = (function () {
               );
             }
           } else {
-            (p = Pd(l, g, c, f, p)) ? W.readPixels(a, b, c, f, g, l, p)
-            : Cd(1280);
+            (p = Pd(l, g, c, f, p))
+              ? W.readPixels(a, b, c, f, g, l, p)
+              : Cd(1280);
           }
         },
         $b: function (a, b, c, f) {

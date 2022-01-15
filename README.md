@@ -42,4 +42,4 @@ ctx.drawImage(image, x, y);
 
 Check [LICENSE](./LICENSE) for more info.
 
-Copyright 2021 @ DjDeveloperr
+Copyright 2022 © DjDeveloperr

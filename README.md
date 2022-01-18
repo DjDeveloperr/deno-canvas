@@ -38,6 +38,16 @@ const image = await loadImage(myURL);
 ctx.drawImage(image, x, y);
 ```
 
+## Limitations
+
+[Just like original canvaskit-wasm, the emulated Canvas has some limitations:](https://github.com/google/skia/tree/main/modules/canvaskit/npm_build#known-issues-with-canvas2d-emulation-layer)
+
+- measureText returns width only and does no shaping. It is only sort of valid
+  with ASCII letters.
+- textAlign is not supported.
+- textBaseAlign is not supported.
+- fillText does not support the width parameter.
+
 ## License
 
 Check [LICENSE](./LICENSE) for more info.

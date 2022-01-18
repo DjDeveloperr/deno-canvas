@@ -24,8 +24,8 @@ export async function loadImage(url: string | Uint8Array) {
     data = await fetch(url).then((e) => e.arrayBuffer()).then((e) =>
       new Uint8Array(e)
     );
-  } else if (url.startsWith('data')){
-    data = dataURLtoFile(url)
+  } else if (url.startsWith("data")) {
+    data = dataURLtoFile(url);
   } else {
     data = await Deno.readFile(url);
   }

@@ -2784,6 +2784,19 @@ export var CanvasKitInit = (function () {
             };
             this.drawImage = function (k) {
               k instanceof D && (k = k.sf());
+              if (k instanceof y) {
+                k = a.MakeImage(
+                  {
+                    width: k.cf.Af,
+                    height: k.cf.xf,
+                    alphaType: a.AlphaType.Unpremul,
+                    colorType: a.ColorType.RGBA_8888,
+                    colorSpace: a.ColorSpace.SRGB,
+                  },
+                  k.getRawBuffer(0, 0, k.cf.Af, k.cf.xf),
+                  4 * k.cf.Af,
+                );
+              }
               var p = this.Oe();
               if (3 === arguments.length || 5 === arguments.length) {
                 var z = a.XYWHRect(

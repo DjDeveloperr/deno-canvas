@@ -32,3 +32,35 @@ export function hslToRgb(h: number, s: number, l: number) {
 
   return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
 }
+
+export function maybeHSL(k: string) {
+  if (typeof k === "string") {
+    const match = k.match(/^hsla?\((\d+), *(\d+)%, *(\d+)%(, *([\d\.]+))?\)$/);
+
+    if (match !== null) {
+      const h = Number(match[1]);
+      const s = Number(match[2]);
+      const l = Number(match[3]);
+      const a = k.startsWith("hsla") && match[5] ? Number(match[5]) : undefined;
+
+      k = "rgb";
+      if (a !== undefined) {
+        k += "a";
+      }
+      k += "(";
+
+      const [r, g, b] = hslToRgb(h, s, l);
+      k += r + ", ";
+      k += g + ", ";
+      k += b;
+
+      if (a !== undefined) {
+        k += ", " + a;
+      }
+
+      k += ")";
+    }
+  }
+
+  return k;
+}

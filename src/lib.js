@@ -2358,6 +2358,7 @@ export var CanvasKitInit = (function () {
                 k.me();
               });
             };
+
             Object.defineProperty(this, "currentTransform", {
               enumerable: !0,
               get: function () {
@@ -3216,6 +3217,16 @@ export var CanvasKitInit = (function () {
           function y(G) {
             this.cf = G;
             this.Md = new r(G.getCanvas());
+            Object.defineProperty(this, "width", {
+              get: () => {
+                return this.Md.Af;
+              },
+            });
+            Object.defineProperty(this, "height", {
+              get: () => {
+                return this.Md.xf;
+              },
+            });
             this.Qe = [];
             this.decodeImage = function (k) {
               k = a.MakeImageFromEncoded(k);

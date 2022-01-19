@@ -2358,6 +2358,7 @@ export var CanvasKitInit = (function () {
                 k.me();
               });
             };
+
             Object.defineProperty(this, "currentTransform", {
               enumerable: !0,
               get: function () {
@@ -2956,12 +2957,42 @@ export var CanvasKitInit = (function () {
             this.lineTo = function (k, p) {
               R(this.Td, k, p);
             };
-            this.measureText = function (k) {
-              k = this.ne.getGlyphIDs(k);
-              k = this.ne.getGlyphWidths(k);
-              let p = 0;
-              for (const z of k) p += z;
-              return { width: p };
+            this.measureText = function (txt) {
+              const glyphWidths = this.ne.getGlyphWidths(txt);
+              let width = 0;
+              for (const w of glyphWidths) {
+                width += w;
+              }
+              let glyphBounds = this.ne
+                .getGlyphBounds(txt)
+                .reduce((all, one, i) => {
+                const ch = Math.floor(i / 4);
+                  all[ch] = [].concat(all[ch] || [], one);
+                  return all;
+                }, []);
+              let actualBoundingBoxAscent = Math.abs(
+                glyphBounds.map((e) => e[1]).reduce((p, a) => p + a, 0),
+              ) / glyphBounds.length;
+              let actualBoundingBoxDescent = Math.abs(
+                glyphBounds.map((e) => e[0]).reduce((p, a) => p + a, 0),
+              ) / glyphBounds.length;
+              let actualBoundingBoxLeft = Math.abs(
+                glyphBounds.map((e) => e[3]).reduce((p, a) => p + a, 0),
+              ) / glyphBounds.length;
+              // let actualBoundingBoxRight = Math.abs(
+              //   glyphBounds.map((e) => e[2]).reduce((p, a) => p + a, 0),
+              // ) / glyphBounds.length;
+              const metrics = this.ne.getMetrics();
+              const res = {
+                width,
+                actualBoundingBoxAscent,
+                actualBoundingBoxDescent,
+                actualBoundingBoxLeft,
+                actualBoundingBoxRight: width + actualBoundingBoxLeft,
+                fontBoundingBoxAscent: Math.abs(metrics.ascent),
+                fontBoundingBoxDescent: Math.abs(metrics.descent),
+              };
+              return res;
             };
             this.moveTo = function (k, p) {
               var z = this.Td;
@@ -3216,6 +3247,12 @@ export var CanvasKitInit = (function () {
           function y(G) {
             this.cf = G;
             this.Md = new r(G.getCanvas());
+            Object.defineProperty(this, "width", {
+              value: this.cf.Af,
+            });
+            Object.defineProperty(this, "height", {
+              value: this.cf.xf,
+            });
             this.Qe = [];
             this.decodeImage = function (k) {
               k = a.MakeImageFromEncoded(k);

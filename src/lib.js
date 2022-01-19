@@ -3218,14 +3218,10 @@ export var CanvasKitInit = (function () {
             this.cf = G;
             this.Md = new r(G.getCanvas());
             Object.defineProperty(this, "width", {
-              get: () => {
-                return this.Md.Af;
-              },
+              value: this.cf.Af,
             });
             Object.defineProperty(this, "height", {
-              get: () => {
-                return this.Md.xf;
-              },
+              value: this.cf.xf,
             });
             this.Qe = [];
             this.decodeImage = function (k) {

@@ -15,7 +15,6 @@ other exports from the file are types and utility functions.
 
 ```ts
 import { createCanvas } from "https://deno.land/x/canvas/mod.ts";
-import { serve } from "https://deno.land/std/http/server.ts";
 
 const canvas = createCanvas(200, 200);
 const ctx = canvas.getContext("2d");

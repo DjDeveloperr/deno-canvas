@@ -2828,7 +2828,9 @@ export var CanvasKitInit = (() => {
                 return c(this.he);
               },
               set: function (k) {
-                "string" === typeof k ? this.he = g(maybeHSL(k)) : k.ue && (this.he = k);
+                "string" === typeof k
+                  ? this.he = g(maybeHSL(k))
+                  : k.ue && (this.he = k);
               },
             });
             this.arc = function (k, p, A, B, E, F) {
@@ -2905,18 +2907,18 @@ export var CanvasKitInit = (() => {
             };
             this.drawImage = function (k) {
               k instanceof C && (k = k.sf());
-              if (k instanceof y) {	
-                k = a.MakeImage(		
-                  {		
-                    width: k.bf.Df,		
-                    height: k.bf.zf,		
-                    alphaType: a.AlphaType.Unpremul,		
-                    colorType: a.ColorType.RGBA_8888,		
-                    colorSpace: a.ColorSpace.SRGB,		
-                  },		
-                  k.getRawBuffer(0, 0, k.bf.Df, k.bf.zf),		
-                  4 * k.bf.Df,		
-                );		
+              if (k instanceof y) {
+                k = a.MakeImage(
+                  {
+                    width: k.bf.Df,
+                    height: k.bf.zf,
+                    alphaType: a.AlphaType.Unpremul,
+                    colorType: a.ColorType.RGBA_8888,
+                    colorSpace: a.ColorSpace.SRGB,
+                  },
+                  k.getRawBuffer(0, 0, k.bf.Df, k.bf.zf),
+                  4 * k.bf.Df,
+                );
               }
               var p = this.Pe();
               if (3 === arguments.length || 5 === arguments.length) {
@@ -3355,21 +3357,21 @@ export var CanvasKitInit = (() => {
             };
             this.getContext = function (k) {
               const ctx = "2d" === k ? this.Md : null;
-              if (null !== ctx && ctx.canvas) {		
-                ctx.canvas.width = this.width;		
-                ctx.canvas.height = this.height;		
-              }		
-              return ctx;		
-            };		
-            this.getRawBuffer = function (k, n, y, B) {		
-              return this.bf.getCanvas().readPixels(k || 0, n || 0, {		
-                width: y || this.width,		
-                height: B || this.height,		
-                colorType: a.ColorType.RGBA_8888,		
-                alphaType: a.AlphaType.Unpremul,		
-                colorSpace: a.ColorSpace.SRGB,		
-                raw: true,		
-              });		
+              if (null !== ctx && ctx.canvas) {
+                ctx.canvas.width = this.width;
+                ctx.canvas.height = this.height;
+              }
+              return ctx;
+            };
+            this.getRawBuffer = function (k, n, y, B) {
+              return this.bf.getCanvas().readPixels(k || 0, n || 0, {
+                width: y || this.width,
+                height: B || this.height,
+                colorType: a.ColorType.RGBA_8888,
+                alphaType: a.AlphaType.Unpremul,
+                colorSpace: a.ColorSpace.SRGB,
+                raw: true,
+              });
             };
             this.toDataURL = function (k, p) {
               this.bf.flush();
@@ -3386,18 +3388,18 @@ export var CanvasKitInit = (() => {
                 }
               }
             };
-            this.toBuffer = function (k, p) {		
-              this.bf.flush();		
-              var z = this.bf.makeImageSnapshot();		
-              if (z) {		
-                k = k || "image/png";		
-                var B = a.ImageFormat.PNG;		
-                "image/jpeg" === k && (B = a.ImageFormat.JPEG);		
-                if (p = z.encodeToBytes(B, p || .92)) {		
-                  z.delete();		
-                  return p;		
-                }		
-              }		
+            this.toBuffer = function (k, p) {
+              this.bf.flush();
+              var z = this.bf.makeImageSnapshot();
+              if (z) {
+                k = k || "image/png";
+                var B = a.ImageFormat.PNG;
+                "image/jpeg" === k && (B = a.ImageFormat.JPEG);
+                if (p = z.encodeToBytes(B, p || .92)) {
+                  z.delete();
+                  return p;
+                }
+              }
             };
             this.dispose = function () {
               this.Md.me();

@@ -47,6 +47,14 @@ ctx.drawImage(image, x, y);
 - textBaseAlign is not supported.
 - fillText does not support the width parameter.
 
+## Alternative
+
+There is also [skia_canvas](https://github.com/DjDeveloperr/skia_canvas).
+
+- Fast & low-overhead, 2x performance improvement
+- Above mentioned limitations are not present, in fact there are no limitations
+- Uses FFI instead of WASM
+
 ## License
 
 Check [LICENSE](./LICENSE) for more info.

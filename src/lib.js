@@ -3777,7 +3777,8 @@ export var CanvasKitInit = (function () {
       za = "function" === typeof importScripts;
       Aa = "object" === typeof process &&
         "object" === typeof process.versions &&
-        "string" === typeof process.versions.node;
+        "string" === typeof process.versions.node &&
+        "undefined" === typeof Deno;
       Ba = !xa && !Aa && !za;
       var Ca = "", Da, Ea, Fa, Ga, Ja;
       if (Aa) {

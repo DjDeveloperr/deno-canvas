@@ -1,4 +1,4 @@
 export {
-  decode,
-  encode,
-} from "https://deno.land/std@0.106.0/encoding/base64.ts";
+  decodeBase64 as decode,
+  encodeBase64 as encode,
+} from "jsr:@std/encoding@1.0.5/base64";

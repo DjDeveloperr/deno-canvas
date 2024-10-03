@@ -1,0 +1,5 @@
+{
+  "name": "@gfx/canvas-wasm",
+  "version": "0.4.2",
+  "exports": "./mod.ts"
+}

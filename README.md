@@ -31,7 +31,7 @@ import { createCanvas } from "https://deno.land/x/canvas/mod.ts";
 other exports from the file are types and utility functions.
 
 ```ts
-import { createCanvas } from "@gfx/canvas-wasm";
+import { createCanvas } from "https://deno.land/x/canvas/mod.ts";
 
 const canvas = createCanvas(200, 200);
 const ctx = canvas.getContext("2d");

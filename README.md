@@ -5,8 +5,25 @@ Canvas API for Deno, ported from
 
 ## Installation
 
-Import from https://deno.land/x/canvas/mod.ts or just import from raw GitHub
-URL, https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/mod.ts.
+### Deno 2
+
+Install using:
+
+    deno add jsr:@gfx/canvas-wasm
+
+Then import like:
+
+```ts
+import { createCanvas } from "@gfx/canvas-wasm";
+```
+  
+### Deno 1.x
+
+Use HTTP import (or alternatively directly from `https://raw.githubusercontent.com/DjDeveloperr/deno-canvas/master/mod.ts`)
+
+```ts
+import { createCanvas } from "https://deno.land/x/canvas/mod.ts";
+```
 
 ## Usage
 
